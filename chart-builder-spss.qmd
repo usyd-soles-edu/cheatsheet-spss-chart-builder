@@ -1,0 +1,127 @@
+---
+title: Using Chart Builder in **SPSS**
+subtitle: Cheatsheet
+date: today
+lightbox: true
+---
+
+```{r}
+#| include: false
+library(dplyr)
+library(tidyr)
+library(gt)
+possums <- readxl::read_excel("possum_bw.xlsx")
+```
+
+
+## About {.unnumbered}
+
+This cheat sheet provides a step-by-step guide to plotting various chart types, customising elements, and refining of the visualisations in SPSS.
+
+
+::: {.grid}
+
+::: {.g-col-6}
+::: {.callout-note collapse="true"}
+## Assumed knowledge
+- You have SPSS installed, ideally version 28.0 or later.
+- You can follow instructions to select, click and drag elements in SPSS.
+:::
+:::
+
+::: {.g-col-6}
+::: {.callout-important collapse="true"}
+## Data structure
+The data should be in a **long format** (also known as tidy data), where each row is an observation and each column is a variable (@fig-format). If your data is not already structured this way, reshape it manually in a spreadsheet program or in R using the `pivot_longer()` function from the `tidyr` package.
+
+
+::: {layout="[ 0.4, -0.1, 0.4 ]" #fig-format}
+
+:::: {#first-column}
+```{r}
+#| echo: false
+possums <- readxl::read_excel("possum_bw.xlsx")
+possums |>
+  head(8) |>
+  gt() |>
+  opt_stylize(style = 5, color = "red")
+```
+:::
+
+::: {#second-column}
+```{r}
+#| echo: false
+possums |>
+  group_by(Sex) |>
+  mutate(row = row_number()) |>
+  pivot_wider(names_from = Sex, values_from = BW) |>
+  select(-row) |>
+  head(4) |>
+  gt() |>
+  opt_stylize(style = 5, color = "red")
+```
+:::
+
+Data should be in long format (left) where each row is an observation and each column is a variable. This is the preferred format for most statistical software. Wide format (right) is also common, but may require additional steps to analyse or visualise in some instances.
+::::
+:::
+:::
+
+:::
+
+
+
+## Data
+::: {.callout-tip collapse="true"}
+## Download data
+We have two separate datasets. The first dataset is part of the possums dataset used in [BIOL2022](https://www.sydney.edu.au/units/BIOL2022) labs. It contains two numerical variables: `ExpBLUP` and `AactiveTBLUP`. The data is available in the file `possums-blup.csv`.
+
+The second dataset, `penguins.csv`, contains data collected by Dr. Kristen Gorman and the Palmer Station, Antarctica LTER. Details about the dataset can be found [here](https://allisonhorst.github.io/palmerpenguins/).
+
+{{< downloadthis possums-blup.csv dname="possums-blup" label="possums-blup.csv" type="primary" >}} {{< downloadthis penguins.csv dname="penguins" label="penguins.csv" type="primary" >}}
+:::
+
+## Creating a plot/chart in SPSS
+
+| \# | Step | Description | View |
+|--------------|--------------|-----------------------|---------------------|
+| 1 | Import data | Open SPSS and load your data by going to File \> Open \> Data or by dragging and dropping a file into the SPSS window. | ![Step 1] |
+| 2 | Access Chart Builder | Click on Graphs \> Chart Builder in the top navigation menu. | ![Step 2] |
+| 3 | Select a chart | In the Chart Builder dialog box, select the desired chart type from the Gallery tab, and drag it into the preview area. | ![Step 3] |
+| 4 | Choose variables | Drag and drop the variables you want to plot into the appropriate fields (e.g., X-Axis, Y-Axis). | ![Step 4] |
+| 5 | Customize chart | Adjust chart elements such as titles, labels, colors, and patterns using the options in the Chart Builder dialog box. | ![Step 5] |
+| 6 | Refine chart | Fine-tune the chart by adjusting axis scales, data point symbols, and other properties in the right panel. | ![Step 6] |
+| 7 | Create chart | Click OK to generate your chart. You can edit the chart again by double clicking on it. To export, right click on the chart and select Export... | ![Step 7] |
+
+  [Step 1]: assets/spss-import.png {.lightbox}
+  [Step 2]: assets/spss-chart-builder.png {.lightbox}
+  [Step 3]: assets/spss-drag-preview.png {.lightbox}
+  [Step 4]: assets/spss-drag-vars.png {.lightbox}
+  [Step 5]: assets/spss-customise01.png {.lightbox}
+  [Step 6]: assets/spss-customise02.png
+  [Step 7]: assets/spss-export.png {.lightbox}
+
+## Tips and Variations
+
+-   Use the **Dual Y-Axis** option for multiple scales.
+-   Experiment with different chart types and customizations.
+-   Save your chart as an image or copy it into another document.
+
+## Examples
+Under construction!
+
+::: panel-tabset
+## Histogram
+
+## Barplot
+
+## Pie chart
+:::
+
+## Resources
+
+- [Building Charts](https://www.ibm.com/docs/sr/spss-statistics/saas?topic=charts-building) by IBM SPSS -- Official documentation on creating charts in SPSS.
+- [Charts](https://uniskills.library.curtin.edu.au/digital/spss/charts/) from Curtin University's Introduction to SPSS -- sample data and instructions for creating various charts in SPSS.
+
+## License
+This work was developed using resources that are available under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/), made available on the [SOLES Open Educational Resources](https://github.com/usyd-soles-edu) repository by the School of Life and Environmental Sciences, The University of Sydney.

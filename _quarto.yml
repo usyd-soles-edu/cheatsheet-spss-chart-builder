@@ -1,0 +1,18 @@
+project:
+  title: "Using Chart Builder in SPSS"
+
+
+
+format:
+  html:
+    theme: 
+      light: matria
+      dark: slate
+    number-sections: true
+  pdf:
+    toc: false
+    fontsize: 11pt
+execute:
+  freeze: auto
+
+embed-resources: true

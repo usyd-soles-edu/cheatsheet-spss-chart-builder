@@ -1,1 +1,1 @@
-# cheatsheet-spss-chart-builder
+# cheatsheet-spss-scatterplot
